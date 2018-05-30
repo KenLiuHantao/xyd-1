@@ -275,6 +275,7 @@ export default {
 			}
 			.down {
 				width: 3.57rem;
+				height: 1.32rem;
 				float: none;
 				margin: auto;
 			}

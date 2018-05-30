@@ -26,17 +26,23 @@ export default {
 </template>
 <style lang='less'>
 .nav {
-	position: relative;
-	z-index: 1;
+	position: absolute;
+	width: 1150px;
+	left: 50%;
+	margin-left: -575px;
+	z-index: 1000;
 	padding: 20px;
+	right: 0;
 	ul {
+		margin-left: 400px;
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-		padding-right: 40px;
 		li {
-			padding: 0 20px;
+			transition: all .1s linear;
+			padding: 0 10px;
 			.lin {
+				transition: all .1s linear;
 				display: inline-block;
 				width: 10px;
 				height: 10px;
@@ -48,15 +54,18 @@ export default {
 				display: flex;
 				align-items: center;
 				color: #fff;
-				font-size: 25px;
+				font-size: 28px;
 				font-weight: bold;
+				transition: all .1s linear;
 			}
 			&:hover {
 				a {
 					color: #ff2800;
+					transition: all .1s linear;
 				}
 				.lin {
 					border-color: #ff2800;
+					transition: all .1s linear;
 				}
 			}
 		}

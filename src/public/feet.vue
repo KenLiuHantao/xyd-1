@@ -35,9 +35,7 @@ export default {
 	flex-direction: column;
 	position: relative;
 	z-index: 1;
-	margin-top: 50px;
-	height: 130px;
-	padding-top: 50px;
+	padding: 40px 0;
 	background-repeat: no-repeat;
 	background-position: bottom;
 	background-size: 100%;

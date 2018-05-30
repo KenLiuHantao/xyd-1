@@ -21,6 +21,7 @@ export default {
 	},
 	watch: {
 		type(val) {
+			console.log(val);
 			if (val === 'weibo') location.href = xbls.weiboLink;
 		}
 	},

@@ -44,7 +44,7 @@ export default {
 				equ: '',
 				equ_name: ''
 			},
-			loading:true,
+			loading: true,
 			dia_show: false,
 			dia_type: 'qq'
 		}
@@ -58,7 +58,10 @@ export default {
 		async getInfo() {
 			this.loading = true;
 			let data = await this.$http.jsonp(z.jsonp + '/home/getLists');
-			let cover = await this.$http.jsonp(z.jsonp + '/home/getCover').catch(err => { this.$message.error('获取cover有错！');this.loading = false; });
+			let cover = await this.$http.jsonp(z.jsonp + '/home/getCover').catch(err => {
+				this.$message.error('获取cover有错！');
+				this.loading = false;
+			});
 			let initData = data.data.list;
 			let other = initData.newbie.concat(initData.geek).concat(initData.war);
 			initData.other = other;
@@ -107,119 +110,118 @@ export default {
 </script>
 <template>
 	<div class="web_index">
-		<div class="loading" v-show='loading' v-loading='loading'/>
+		<div class="loading" v-show='loading' v-loading='loading' />
 		<div class="top" :style="{backgroundImage:`url(${banner})`}" />
 		<x-head/>
-		<div class="header">
-			<div class="word_r">
-				<img :src="logo" class='logo'>
-				<img :src="logo_w" class='logo_w'>
+		<div class="web_cnt">
+			<div class="header flex">
+				<div class="pus" />
+				<div class="word_r">
+					<img :src="logo" class='logo'>
+					<img :src="logo_w" class='logo_w'>
+					<down :rightShow="true" @open="openDia('qidai')" />
+				</div>
 			</div>
-		</div>
-		<down :rightShow="true" @open="openDia('qidai')"/>
-		<div class="d_news wrap_box">
-			<div class="img_list">
-				<el-carousel trigger="click" height="345px">
-					<el-carousel-item v-for="(item, idx) in coverList" :key="idx">
-						<img :src="item.images" alt="">
-					</el-carousel-item>
-				</el-carousel>
+			<div class="d_news wrap_box">
+				<div class="img_list">
+					<el-carousel trigger="click" height="350px">
+						<el-carousel-item v-for="(item, idx) in coverList" :key="idx">
+							<img :src="item.images" alt="">
+						</el-carousel-item>
+					</el-carousel>
+				</div>
+				<div class="news_list">
+					<el-tabs v-model="activeName" @tab-click="handleClick">
+						<el-tab-pane label="热点" name="first">
+							<news-item :list='initData.hots' label="热点" />
+						</el-tab-pane>
+						<el-tab-pane label="新闻" name="second">
+							<news-item :list='initData.news' label="新闻" />
+						</el-tab-pane>
+						<el-tab-pane label="活动" name="third">
+							<news-item :list='initData.activities' label="活动" />
+						</el-tab-pane>
+						<el-tab-pane label="攻略" name="fourth">
+							<news-item :list='initData.other' label="攻略" />
+						</el-tab-pane>
+						<el-tab-pane label="···" name="fifth">···</el-tab-pane>
+					</el-tabs>
+				</div>
 			</div>
-			<div class="news_list">
-				<el-tabs v-model="activeName" @tab-click="handleClick">
-					<el-tab-pane label="热点" name="first">
-						<news-item :list='initData.hots' label="热点" />
-					</el-tab-pane>
-					<el-tab-pane label="新闻" name="second">
-						<news-item :list='initData.news' label="新闻" />
-					</el-tab-pane>
-					<el-tab-pane label="活动" name="third">
-						<news-item :list='initData.activities' label="活动" />
-					</el-tab-pane>
-					<el-tab-pane label="攻略" name="fourth">
-						<news-item :list='initData.other' label="攻略" />
-					</el-tab-pane>
-					<el-tab-pane label="···" name="fifth">···</el-tab-pane>
-				</el-tabs>
-			</div>
-		</div>
-		<div class="inif wrap_box" id='wujiang'>
-			<h2 class="title">
+			<div class="inif wrap_box" id='wujiang'>
+				<h2 class="title">
 				武将介绍
 				<p>CHARACTER</p>
 			</h2>
-			<a href="javascript:;" @click='openDia("qidai")' class="more">
+				<a href="javascript:;" @click='openDia("qidai")' class="more">
 				更多<i class="spr">+</i>
 			</a>
-			<ul class="inif_list mgt18">
-				<li v-for='(item, idx) in wj_list' @click="PTTSendClick(item, idx)" @mousedown="detailRender(8)" :class="idx === list_idx ? 'grayscale inif_list_8 on' : 'grayscale inif_list_8'">
-					<img :src="item.url" alt="item.chinese">
-				</li>
-				<li class='inif_list_last'>
-					<a href="javascript:;" @click='openDia("qidai")'>+<span class="po">更多精彩武将</span></a>
-				</li>
-			</ul>
-			<div class="inif_intr">
-				<ul class="inif_intr_list">
-					<li class="on inif_list_1 intr_li" :style="{backgroundImage:`url(${bg})`}">
-						<h5>
+				<ul class="inif_list mgt18">
+					<li v-for='(item, idx) in wj_list' @click="PTTSendClick(item, idx)" @mousedown="detailRender(8)" :class="idx === list_idx ? 'grayscale inif_list_8 on' : 'grayscale inif_list_8'">
+						<img :src="item.url" alt="item.chinese">
+					</li>
+					<li class='inif_list_last'>
+						<a href="javascript:;" @click='openDia("qidai")'>+<span class="po">更多精彩武将</span></a>
+					</li>
+				</ul>
+				<div class="inif_intr">
+					<ul class="inif_intr_list">
+						<li class="on inif_list_1 intr_li" :style="{backgroundImage:`url(${bg})`}">
+							<h5>
 							{{wj_right.chinese}}
 							<img id="knif" :src="wj_right.city" alt="">
 							<span class='star' :style="{backgroundImage:`url(${wj_right.star})`}" />
 						</h5>
-						<ul class="many_data">
-							<li><i :style="{backgroundImage:`url(${gongji})`}" class="spr" />攻击<span>{{wj_right.attack}}</span></li>
-							<li><i :style="{backgroundImage:`url(${fangshou})`}" class="spr" />防守<span>{{wj_right.defense}}</span></li>
-							<li><i :style="{backgroundImage:`url(${zhimou})`}" class="spr" />智谋<span>{{wj_right.iq}}</span></li>
-						</ul>
-						<h6>武技描述</h6>
-						<p>{{wj_right.cons}}</p>
-						<h6>武将装备</h6>
-						<ul class="skill">
-							<li>
-								<img :src="wj_right.equ">
-								<!-- <span>赤壁火雨 <i>周瑜召唤火凤凰，对所有敌军造成160%战法伤害，并使敌军持续燃烧3秒，每秒受到11%战法伤害</i></span> -->
-							</li>
-						</ul>
-						<img :src="wj_right.big" alt="周瑜">
-					</li>
-				</ul>
+							<ul class="many_data">
+								<li><i :style="{backgroundImage:`url(${gongji})`}" class="spr" />攻击<span>{{wj_right.attack}}</span></li>
+								<li><i :style="{backgroundImage:`url(${fangshou})`}" class="spr" />防守<span>{{wj_right.defense}}</span></li>
+								<li><i :style="{backgroundImage:`url(${zhimou})`}" class="spr" />智谋<span>{{wj_right.iq}}</span></li>
+							</ul>
+							<h6>武技描述</h6>
+							<p>{{wj_right.cons}}</p>
+							<h6>武将装备</h6>
+							<ul class="skill">
+								<li>
+									<img :src="wj_right.equ">
+									<!-- <span>赤壁火雨 <i>周瑜召唤火凤凰，对所有敌军造成160%战法伤害，并使敌军持续燃烧3秒，每秒受到11%战法伤害</i></span> -->
+								</li>
+							</ul>
+							<img :src="wj_right.big" alt="周瑜">
+						</li>
+					</ul>
+				</div>
 			</div>
-		</div>
-		<div class="introduction wrap_box" id='bingzhong'>
-			<h2 class="title">
+			<div class="introduction wrap_box" id='bingzhong'>
+				<h2 class="title">
 				兵种介绍
 				<p>CORPS</p>
 			</h2>
-			<a href="javascript:;" @click='openDia("qidai")' class="more">
+				<a href="javascript:;" @click='openDia("qidai")' class="more">
 				更多<i class="spr">+</i>
 			</a>
-			<ul class="sum_list">
-				<li v-for="(item, c_idx) in corps" @click='choiceCorps(item, c_idx)' :class="c_idx == sub_idx ? 'on' : ''">
-					{{item.title}}<a href="javascript:;">+</a>
-				</li>
-			</ul>
-			<ul class="intr_box">
-				<li class="intr_child on infantry">
-					<ul class="infantry_box widt_box">
-						<li class="pos_obx infantry_one">
-							<h4>{{corps_choice.title}}</h4>
-							<p>{{corps_choice.content}}</p>
-							<img :src="corps_choice.pic" alt="士兵图">
-						</li>
-					</ul>
+				<ul class="sum_list">
+					<li v-for="(item, c_idx) in corps" @click='choiceCorps(item, c_idx)' :class="c_idx == sub_idx ? 'on' : ''">
+						{{item.title}}<a href="javascript:;">+</a>
+					</li>
+				</ul>
+				<ul class="intr_box">
+					<li class="intr_child on infantry">
+						<ul class="infantry_box widt_box">
+							<li class="pos_obx infantry_one">
+								<h4>{{corps_choice.title}}</h4>
+								<p>{{corps_choice.content}}</p>
+								<img :src="corps_choice.pic" alt="士兵图">
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<ul class="qr_box wrap_box q">
+				<li class="qr_zc" v-for='(item, idx) in qr_list' @click='openDia(item.type)' :style="{backgroundImage:`url(${item.bg})`}">
 				</li>
 			</ul>
 		</div>
-		<ul class="qr_box wrap_box q">
-			<li class="qr_zc" v-for='(item, idx) in qr_list' @click='openDia(item.type)'>
-				<div class="left_cnt" :style="{backgroundImage:`url(${qr_bg})`}">
-					{{item.title}}
-				</div>
-				<img class="po" :src="item.img" alt="游戏客服二维码">
-			</li>
-		</ul>
-		<feet type='#000'/>
+		<feet type='#000' />
 		<dia :show.sync='dia_show' :type='dia_type' @cb='dia_show = false' />
 		<div class="buttom" :style="{backgroundImage:`url(${bg_buttom})`}" />
 	</div>
@@ -235,8 +237,12 @@ export default {
 	.spr {
 		background: url(//game.gtimg.cn/images/3new/web20180301/spr.png) no-repeat 0 0;
 	}
+	.top {
+		height: 930px!important;
+		background-size: 1920px 930px!important;
+	}
 	.mgt18 {
-		margin: 18px 0;
+		margin: 23px 0;
 	}
 	.more {
 		float: right;
@@ -267,8 +273,8 @@ export default {
 	.wrap_box {
 		position: relative;
 		z-index: 1;
-		width: 1240px;
-		margin: 40px auto;
+		width: 100%;
+		margin: 30px auto;
 	}
 	.title {
 		display: flex;
@@ -281,6 +287,7 @@ export default {
 		p {
 			font-size: 18.8px;
 			color: #f4b505;
+			margin-left: 10px;
 		}
 	}
 	.d_news {
@@ -290,13 +297,14 @@ export default {
 		margin-top: 0;
 		>div {
 			width: 50%;
-			height: 345px!important;
+			height: 350px!important;
 		}
 		.img_list {
+
 			img {
 				display: inline-block;
 				width: 100%;
-				height: 345px;
+				height: 350px;
 			}
 		}
 		.el-tabs__nav {
@@ -322,31 +330,43 @@ export default {
 	.header {
 		position: relative;
 		z-index: 1;
-		height: 300px;
+		height: 747px;
+		.pus {
+			width: 50%;
+			height: 100%;
+		}
 		.word_r {
-			width: 300px;
-			margin-left: 55%;
+			box-sizing: border-box;
+			width: 50%;
+			height: 100%;
+			padding-left: 166px;
 			img {
 				display: block;
+				margin: auto;
 			}
-		}
-		.logo {
-			margin: auto;
-			width: 150px;
-		}
-		.logo_w {
-			width: 300px;
-			margin-bottom: 10px;
+			.logo {
+				width: 240px;
+				height: 106px;
+				margin-top: 160px;
+			}
+			.logo_w {
+				width: 382px;
+				height: 300px;
+			}
+			.down {
+				margin-top: 10px;
+				justify-content: flex-end!important;
+			}
 		}
 	}
 	.inif_list {
-		width: 540px;
-		height: 404px;
+		width: 480px;
+		height: 360px;
 		float: left;
 		background: #252b46;
 		li {
-			width: 135px;
-			height: 135px;
+			width: 120px;
+			height: 120px;
 			float: left;
 			cursor: pointer;
 			opacity: 0.6;
@@ -354,8 +374,8 @@ export default {
 			filter: alpha(opacity=60);
 			overflow: hidden;
 			img {
-				width: 135px;
-				height: 135px;
+				width: 120px;
+				height: 120px;
 				display: block;
 				margin: 0 auto;
 			}
@@ -382,11 +402,12 @@ export default {
 				}
 				span {
 					display: block;
-					font-size: 14px;
+					font-size: 16px;
 					color: #fff;
 					text-indent: 0;
 					line-height: 0;
 					top: 90px;
+					margin-top: -20px;
 				}
 			}
 		}
@@ -395,8 +416,8 @@ export default {
 		}
 	}
 	.inif_intr {
-		width: 683px;
-		height: 405px;
+		width: 607px;
+		height: 363px;
 		float: right;
 		background: no-repeat 0 0;
 		position: relative;
@@ -408,10 +429,11 @@ export default {
 				display: block!important;
 			}
 			li.intr_li {
+				box-sizing: border-box;
 				position: absolute;
 				top: 0;
 				left: 0;
-				width: 643px;
+				width: 100%;
 				height: 100%;
 				padding-left: 40px;
 				text-align: left;
@@ -420,7 +442,7 @@ export default {
 			h5 {
 				display: flex;
 				align-items: center;
-				margin-top: 42px;
+				margin-top: 30px;
 				font-size: 30px;
 				color: #b19d64;
 				font-weight: bold;
@@ -471,6 +493,8 @@ export default {
 				font-weight: bold;
 			}
 			.many_data {
+				position: relative;
+				z-index: 1;
 				color: #fff;
 				font-size: 14px;
 				font-weight: bold;
@@ -562,18 +586,17 @@ export default {
 		padding-top: 30px;
 	}
 	.sum_list {
-		width: 208px;
+		width: 184px;
 		float: left;
 		margin: 18px 0 0;
 		li {
-			width: 180px;
+			width: 155px;
 			height: 68px;
-			background: #394264;
+			background: #033856;
 			color: #fff;
 			font-size: 22px;
-			text-indent: 2.5em;
 			line-height: 68px;
-			margin-bottom: 5px;
+			margin-bottom: 7px;
 			cursor: pointer;
 			* {
 				color: #fff;
@@ -581,14 +604,15 @@ export default {
 			}
 		}
 		li.on {
-			width: 204px;
-			background: url(//game.gtimg.cn/images/3new/web20180301/spr.png) no-repeat -2px -521px;
+			width: 180px;
+			background: url(//game.gtimg.cn/images/3new/web20180301/spr.png) no-repeat -26px -521px;
 		}
 	}
 	.intr_box {
-		background: url(//game.gtimg.cn/images/3new/web20180301/officerbg.jpg) no-repeat 0 0;
-		width: 1022px;
-		height: 219px;
+		background: url('../assets/images/index/bingzhong/bg.jpg') no-repeat 0 0;
+		width: 905px;
+		height: 218px;
+		margin-top: -2px;
 		float: right;
 		position: relative;
 		.intr_child.on {
@@ -598,13 +622,13 @@ export default {
 			position: absolute;
 			top: 0;
 			left: 0;
-			width: 1022px;
-			height: 219px;
+			width: 905px;
+			height: 218px;
 			display: none;
 		}
 		.widt_box {
-			width: 1022px;
-			height: 219px;
+			width: 905px;
+			height: 218px;
 		}
 		.pos_obx {
 			position: absolute;
@@ -636,26 +660,6 @@ export default {
 			}
 		}
 	}
-	.top {
-		position: absolute;
-		top: 0;
-		z-index: 0;
-		width: 100%;
-		height: 900px;
-		background-position: top;
-		background-size: 120%;
-		background-repeat: no-repeat;
-	}
-	.buttom {
-		position: absolute;
-		bottom: 180px;
-		z-index: 0;
-		width: 100%;
-		height: 900px;
-		background-position: bottom;
-		background-size: 100%;
-		background-repeat: no-repeat;
-	}
 	.qr_box {
 		display: flex;
 		justify-content: space-between;
@@ -666,13 +670,13 @@ export default {
 		li {
 			cursor: pointer;
 			position: relative;
-			width: 250px;
-			height: 195px;
+			width: 291px;
+			height: 201px;
 			display: inline-block;
-			margin: 0 10px;
 			vertical-align: top;
 			position: relative;
 			background-color: #fff;
+			background-size: 100% 100%;
 			.left_cnt {
 				display: flex;
 				align-items: center;

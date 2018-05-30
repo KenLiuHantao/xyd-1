@@ -6,6 +6,11 @@ import bg_buttom from 's/images/index/bg/bg_buttom.jpg';
 import qr_bg from 's/images/qr_code/code_bg.png';
 import wx from 's/images/qr_code/wx.png';
 import download from 's/images/qr_code/download.png';
+import ios from 's/images/ios_down.png';
+import fenggexian from 's/images/fengge.png';
+import android from 's/images/android_down.png';
+import down_word from 's/images/down_word.png';
+import qr_img_bg from 's/images/qr_code/qr_bg.png';
 
 export default {
 	data() {
@@ -17,6 +22,11 @@ export default {
 			bg_buttom,
 			download,
 			wx,
+			ios,
+			qr_img_bg,
+			down_word,
+			fenggexian,
+			android,
 			loading: false,
 			article: {},
 			initData: {},
@@ -28,7 +38,7 @@ export default {
 			pageIndex: 1,
 			totals: 0,
 			showData: [],
-			pageShow:false
+			pageShow: false
 		}
 	},
 	beforeRouteUpdate(to, from, next) {
@@ -95,64 +105,75 @@ export default {
 		<div class="loading" v-show='loading' v-loading='loading' />
 		<div class="top" :style="{backgroundImage:`url(${banner})`}" />
 		<dia :show.sync='dia_show' :type='dia_type' @cb='dia_show = false' />
-		<div class="header">
-			<div class="word_r">
-				<img :src="logo" class='logo'>
-				<img :src="logo_w" class='logo_w'>
-			</div>
-		</div>
-		<div class="news_cnt">
-			<div class="left" :style="{backgroundImage:`url(${qr_bg})`}">
-				<ul>
-					<li>
-						<h2>立即下载</h2>
-						<span>DOWNLOAD</span>
-					</li>
-					<li class="qr_code">
-						<img :src="download" alt="">
-					</li>
-					<li @click='openDia("qidai")'><a href="javascript:;"><i class="icon-ios"/>IOS下载</a></li>
-					<li @click='openDia("qidai")'><a href="javascript:;"><i class="icon-anzhuo"/>安卓下载</a></li>
-					<li><i class="icon-weixin" @click='openDia("wx")' /><i @click='openDia("weibo")' class="icon-weibo" /></li>
-				</ul>
-				<div class="left_btm">
-					<img :src="wx" alt="">
-					<p>扫描微信公众号</p>
-					<el-button icon='icon-qq' @click='openDia("qq")' size="mini">官方客服</el-button>
+		<x-head/>
+		<div class="web_cnt">
+			<div class="header flex">
+				<div class="pus" />
+				<div class="word_r">
+					<img :src="logo_w" class='logo_w'>
 				</div>
 			</div>
-			<div class="right">
-				<h2 v-if='newsType === "news"' class="r_fip">新闻公告<span>NEWS</span></h2>
-				<h2 v-if='newsType === "gonglve"' class="r_fip">游戏攻略<span>STRATEGY</span></h2>
-				<div v-if='isDetail' class="news_article">
-					<h3 class="title">{{article.title}}</h3>
-					<p v-html='article.content'></p>
+			<div class="news_cnt">
+				<div class="left" :style="{backgroundImage:`url(${qr_bg})`}">
+					<ul>
+						<li>
+							<img class='down_word' :src="down_word" alt="">
+						</li>
+						<li class="qr_code flex f_a_c">
+							<img :src="download" alt="">
+						</li>
+						<li class="down_img flex">
+							<img class='ios' @click="openDia('qidai')" :src="ios" alt="">
+							<img class='fenggexian' :src="fenggexian" alt="">
+							<img class='android' @click="openDia('qidai')" :src="android" alt="">
+						</li>
+						<li><i class="icon-weixin" @click='openDia("wx")' /><i @click='openDia("weibo")' class="icon-weibo" /></li>
+					</ul>
+					<div class="left_btm">
+						<img :src="wx" alt="">
+						<p>扫描微信公众号</p>
+						<el-button icon='icon-qq' @click='openDia("qq")' size="mini">官方客服</el-button>
+					</div>
 				</div>
-				<div v-else class="article_list">
-					<div class="title">
-						<el-tabs v-if='newsType === "news"' v-model="activeName" @tab-click="getShowList">
-							<el-tab-pane label="热点" name="hots">
-								<news-item :list='showData' :maxShow="0" label='热点' />
-							</el-tab-pane>
-							<el-tab-pane label="新闻" name="news">
-								<news-item :list='showData' :maxShow="0" label='新闻' />
-							</el-tab-pane>
-							<el-tab-pane label="活动" name="activities">
-								<news-item :list='showData' :maxShow="0" label='活动' />
-							</el-tab-pane>
-						</el-tabs>
-						<el-tabs v-if='newsType === "gonglve"' v-model="activeName" @tab-click="getShowList">
-							<el-tab-pane label="新手教学" name="newbie">
-								<news-item :list='showData' :maxShow="0" label='新手教学' />
-							</el-tab-pane>
-							<el-tab-pane label="高手进阶" name="geek">
-								<news-item :list='showData' :maxShow="0" label='高手进阶' />
-							</el-tab-pane>
-							<el-tab-pane label="国战咨询" name="war">
-								<news-item :list='showData' :maxShow="0" label='国战咨询' />
-							</el-tab-pane>
-						</el-tabs>
-						<el-pagination v-if='pageShow' background @current-change='changePage' layout="prev, pager, next" :total="totals" :page-size="pageSize" />
+				<div class="right">
+					<h2 v-if='newsType === "news"' class="r_fip flex f_j_b">
+						<p>新闻公告<span>NEWS</span></p>
+						<h3><router-link to="/">官网首页</router-link><<新闻公告</h3>
+					</h2>
+					<h2 v-if='newsType === "gonglve"' class="r_fip flex f_j_b">
+						<p>游戏攻略<span>STRATEGY</span></p>
+						<h3><router-link to="/">官网首页</router-link><<游戏攻略</h3>
+					</h2>
+					<div v-if='isDetail' class="news_article">
+						<h3 class="title">{{article.title}}</h3>
+						<p v-html='article.content'></p>
+					</div>
+					<div v-else class="article_list">
+						<div class="title">
+							<el-tabs v-if='newsType === "news"' v-model="activeName" @tab-click="getShowList">
+								<el-tab-pane label="热点" name="hots">
+									<news-item :list='showData' :maxShow="0" label='热点' />
+								</el-tab-pane>
+								<el-tab-pane label="新闻" name="news">
+									<news-item :list='showData' :maxShow="0" label='新闻' />
+								</el-tab-pane>
+								<el-tab-pane label="活动" name="activities">
+									<news-item :list='showData' :maxShow="0" label='活动' />
+								</el-tab-pane>
+							</el-tabs>
+							<el-tabs v-if='newsType === "gonglve"' v-model="activeName" @tab-click="getShowList">
+								<el-tab-pane label="新手教学" name="newbie">
+									<news-item :list='showData' :maxShow="0" label='新手教学' />
+								</el-tab-pane>
+								<el-tab-pane label="高手进阶" name="geek">
+									<news-item :list='showData' :maxShow="0" label='高手进阶' />
+								</el-tab-pane>
+								<el-tab-pane label="国战咨询" name="war">
+									<news-item :list='showData' :maxShow="0" label='国战咨询' />
+								</el-tab-pane>
+							</el-tabs>
+							<el-pagination v-if='pageShow' background @current-change='changePage' layout="prev, pager, next" :total="totals" :page-size="pageSize" />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -173,46 +194,35 @@ export default {
 		justify-content: center;
 	}
 	.top {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 0;
-		width: 100%;
-		height: 900px;
-		background-position: top;
-		background-size: 100%;
-		background-repeat: no-repeat;
-	}
-	.buttom {
-		position: absolute;
-		bottom: 180px;
-		z-index: 0;
-		width: 100%;
-		height: 900px;
-		background-position: bottom;
-		background-size: 100%;
-		background-repeat: no-repeat;
+		height: 930px!important;
+		background-size: 1920px 930px!important;
 	}
 	.header {
 		position: relative;
 		z-index: 1;
-		height: 490px;
+		height: 657px;
+		.pus {
+			width: 50%;
+			height: 100%;
+		}
 		.word_r {
-			width: 300px;
-			padding-top: 8%;
-			margin-left: 55%;
+			box-sizing: border-box;
+			width: 50%;
+			height: 100%;
+			padding-left: 166px;
 			img {
 				display: block;
+				margin: auto;
 			}
-		}
-		.logo {
-			margin: auto;
-			width: 150px;
-		}
-		.logo_w {
-			width: 300px;
-			margin-bottom: 10px;
+			.logo_w {
+				margin-top: 216px;
+				width: 382px;
+				height: 300px;
+			}
+			.down {
+				margin-top: 10px;
+				justify-content: flex-end!important;
+			}
 		}
 	}
 	.news_cnt {
@@ -220,7 +230,7 @@ export default {
 		position: relative;
 		z-index: 1;
 		width: 80%;
-		min-width: 1280px;
+		min-width: 1100px;
 		background-color: #fff;
 		min-height: 600px;
 		margin: auto;
@@ -236,7 +246,7 @@ export default {
 			text-align: center;
 			font-size: 24px;
 			ul {
-				padding: 30px 40px;
+				padding: 40px 20px 10px;
 			}
 			li {
 				margin: 10px 0;
@@ -250,21 +260,39 @@ export default {
 					font-weight: bolder;
 				}
 				span {
-
 					font-size: 20px;
 					color: #4f3802;
+				}
+				.down_word {
+					width: 155px;
+					height: 67px;
 				}
 				a {
 					display: flex;
 					align-items: center;
 					justify-content: center;
 				}
-				img {
-					box-sizing: border-box;
-					padding: 10px;
-					border: 2px solid #fff;
-					width: 100%;
-					height: 100%;
+				&.qr_code {
+					width: 223px;
+					height: 223px;
+					background-position: center;
+					background-size: 223px 223px;
+					background-image: url(../assets/images/qr_code/qr_bg.png);
+					img {
+						width: 180px;
+						height: 180px;
+					}
+				}
+				&.down_img {
+					flex-direction: column;
+					margin-bottom: 38px;
+					img {
+						margin: 5px 0;
+						cursor: pointer;
+					}
+				}
+				[class^="icon-"] {
+					cursor: pointer;
 				}
 			}
 			.left_btm {
@@ -276,10 +304,10 @@ export default {
 					font-size: 18px;
 				}
 				p {
-					font-size: 20px;
+					font-size: 24px;
 					font-weight: bold;
-					line-height: 1.5;
-					margin: 10px 0 30px;
+					line-height: 1;
+					margin: 10px 0 40px;
 				}
 				.el-button {
 					margin: auto;
@@ -288,9 +316,15 @@ export default {
 					justify-content: center;
 					line-height: 1;
 					background-color: #967c3a;
+					width: 194px;
+					height: 54px;
+					border-radius: 5px;
 					span {
-						font-size: 18px;
+						font-size: 22px;
 						color: #fff;
+					}
+					.icon-qq {
+						font-size: 30px;
 					}
 				}
 				img {
@@ -308,15 +342,22 @@ export default {
 			padding: 20px 30px;
 			flex: 1;
 			.r_fip {
-				font-size: 30px;
-				font-weight: bold;
-				padding-bottom: 10px;
-				line-height: 1;
 				border-bottom: 1px solid #000;
 				margin-bottom: 10px;
-				span {
-					margin-left: 10px;
-					color: #e3431e;
+				p {
+					font-size: 30px;
+					font-weight: bold;
+					padding-bottom: 10px;
+					line-height: 1;
+					span {
+						margin-left: 10px;
+						color: #e3431e;
+					}
+				}
+				h3,
+				a {
+					color: #000;
+					font-size: 16px;
 				}
 			}
 		}

@@ -1,35 +1,46 @@
 <script>
-import contact from 's/images/contact.png';
+import fix_show from 's/images/fix_show.png';
+import fix_hide from 's/images/fix_hide.png';
 import wx from 's/images/qr_code/wx.png';
 
 export default {
 	name: 'contact',
 	data() {
 		return {
-			contact,
+			fix_show,
+			fix_hide,
 			wx,
-			toggle: true
+			toggle: true,
+			dia_show: false,
+			dia_type: 'qq'
 		}
 	},
 	methods: {
 		toggleHide() {
 			this.toggle = !this.toggle;
+		},
+		openDia(type) {
+			this.dia_show = true;
+			this.dia_type = type;
+		}
+	},
+	computed: {
+		contactStyle() {
+			return { 
+				width: `${this.toggle ? '263px' : '155px'}`, 
+				backgroundImage: `url(${this.toggle ? this.fix_show : this.fix_hide})` 
+			}
 		}
 	}
 }
 
 </script>
 <template>
-	<div class="contact" :style="{marginRight:`${toggle ? 0 : '-130px'}`}">
-		<div class="bg" :style="{backgroundImage:`url(${contact})`}" @click='toggleHide' />
-		<div class="cnt">
-			<img :src="wx" alt="">
-			<p>微信公众号</p>
-			<p>客服QQ：</p>
-			<p>80032234</p>
+	<div class="contact" :style="contactStyle" @click='toggleHide'>
+		<dia :show.sync='dia_show' :type='dia_type' @cb='dia_show = false' />
+		<div v-if='toggle' class="cnt" @click='openDia("weibo")'>
 			<div class="weibo">
 				<i class="icon-weibo" />
-				<p>新浪微博</p>
 			</div>
 		</div>
 	</div>
@@ -39,41 +50,23 @@ export default {
 	position: fixed;
 	right: 0;
 	top: 100px;
-	width: 220px;
-	height: 400px;
+	width: 263px;
+	height: 465px;
 	z-index: 999;
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
 	flex-direction: column;
-	.bg {
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		z-index: 0;
-		background-size: 100% 100%;
-	}
+	background-size: 100% 100%;
 	.cnt {
 		position: absolute;
 		z-index: 1;
-		* {
-			color: #fff;
-		}
-		p {
-			line-height: 1.5;
-			width: 100px;
-			font-size: 16px;
-			font-weight: bold;
-			text-align: center;
-		}
-		img {
-			width: 100px;
-			margin-bottom: 15px;
-		}
+		top: 300px;
+		right: 36px;
+		cursor: pointer;
 		.weibo {
 			i {
+				color: #fff;
 				display: flex;
 				align-items: center;
 				justify-content: center;

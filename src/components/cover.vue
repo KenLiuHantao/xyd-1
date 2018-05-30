@@ -60,22 +60,25 @@ export default {
 	<div class="cover">
 		<div class="loading" v-show='loading' v-loading='loading' />
 		<div class="top" :style="{backgroundImage:`url(${banner})`}" />
-		<div class="banner">
-			<div class="word_r">
-				<img :src="logo" class='logo'>
-				<img :src="go_idx" class="go_idx" @click='gotoIndex'>
+		<div class="web_cnt">
+			<div class="banner flex">
+				<div class="pus" />
+				<div class="word_r">
+					<img :src="logo" class='logo'>
+					<img :src="go_idx" class="go_idx" @click='gotoIndex'>
+					<down @open="openDia('qidai')" />
+				</div>
 			</div>
-			<down @open="openDia('qidai')"/>
-		</div>
-		<img :src="game" class="game">
-		<div class="container">
-			<el-carousel v-if='imgArr.length' :interval='4000' type="card" height="300px">
-				<el-carousel-item v-for="(item, idx) in imgArr" :key="idx">
-					<div @click='gotoNews(item)' class="back_cover" :style="{'background-image':`url(${cover_border})`}">
-						<div :style="{'background-image':`url(${item.images})`}" class="imgCnt" />
-					</div>
-				</el-carousel-item>
-			</el-carousel>
+			<img :src="game" class="game">
+			<div class="container">
+				<el-carousel v-if='imgArr.length' :interval='100000' type="card" width="1300px" height="510px">
+					<el-carousel-item v-for="(item, idx) in imgArr" :key="idx">
+						<div @click='gotoNews(item)' class="back_cover" :style="{'background-image':`url(${cover_border})`}">
+							<div :style="{'background-image':`url(${item.images})`}" class="imgCnt" />
+						</div>
+					</el-carousel-item>
+				</el-carousel>
+			</div>
 		</div>
 		<dia :show.sync='dia_show' :type='dia_type' @cb='dia_show = false' />
 		<feet/>
@@ -86,64 +89,51 @@ export default {
 .cover {
 	position: relative;
 	width: 100%;
-	min-width: 1280px;
 	.left {
 		margin-top: 30px;
 		margin-right: 20%;
 	}
-	.top {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 0;
-		width: 100%;
-		height: 900px;
-		background-position: top;
-		background-size: 100%;
-		background-repeat: no-repeat;
-	}
-	.buttom {
-		position: absolute;
-		bottom: 0;
-		z-index: 0;
-		width: 100%;
-		height: 900px;
-		background-position: bottom;
-		background-size: 100%;
-		background-repeat: no-repeat;
-	}
 	.banner {
 		position: relative;
 		z-index: 2;
-		margin-bottom: 100px;
+		height: 900px;
+		.pus {
+			width: 50%;
+			height: 100%;
+		}
 		.word_r {
-			width: 300px;
-			padding-top: 8%;
-			margin-left: 55%;
+			box-sizing: border-box;
+			width: 50%;
+			height: 100%;
+			padding-left: 44px;
 			img {
 				display: block;
 			}
 		}
 		.logo {
-			width: 300px;
-			margin-bottom: 10px;
+			width: 500px;
+			height: 400px;
+			margin-top: 160px;
 		}
 		.go_idx {
-			width: 120px;
+			width: 200px;
+			height: 70px;
 			margin: auto;
 			cursor: pointer;
 		}
 	}
 	.game {
-		height: 50px;
+		width: 880px;
+		height: 100px;
 		margin-top: 20px;
 	}
 
 	.container {
-		width: 70%;
-		height: 340px;
-		margin: 20px auto;
+		width: 100%;
+		height: 510px;
+		margin-top: 20px;
+		margin-bottom: 70px;
+		text-align: center;
 	}
 
 	.el-carousel__indicators {
@@ -152,12 +142,12 @@ export default {
 
 	.el-carousel__arrow--left {
 		background: url('../assets/images/cover/left_arr.png');
-		left: 18%;
+		left: 20%;
 	}
 
 	.el-carousel__arrow--right {
 		background: url('../assets/images/cover/right_arr.png');
-		right: 18%;
+		right: 20%;
 	}
 
 	.el-carousel__arrow--left,
@@ -171,29 +161,35 @@ export default {
 		}
 	}
 
-	.el-carousel__item {
-		.back_cover {
+	.el-carousel{
+		width: 1360px;
+		margin-left: -130px;
+	}
+
+	.el-carousel__item--card{
+		width: 680px;
+	}
+
+	.back_cover {
+			width: 680px;
+			height: 510px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			background-position: center;
 			background-size: 100% 100%;
 			box-sizing: border-box;
-			width: 100%;
-			height: 100%;
 		}
 		.imgCnt {
 			position: relative;
 			z-index: 0;
-			margin: auto;
 			box-sizing: border-box;
-			width: 95%;
-			height: 95%;
+			width: 650px;
+			height: 480px;
 			background-size: cover;
 			background-position: center;
 			border: 2px solid #facd89;
 		}
-	}
 }
 
 </style>
