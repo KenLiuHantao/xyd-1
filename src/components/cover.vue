@@ -24,7 +24,9 @@ export default {
 			left_arr,
 			right_arr,
 			feet_back,
-			loading: false
+			loading: false,
+			dia_show: false,
+			dia_type: 'qq'
 		}
 	},
 	mounted() {
@@ -45,6 +47,10 @@ export default {
 		},
 		gotoNews(item) {
 			// this.$router.push({ path: 'web/news', query: { news_id: item.id } });
+		},
+		openDia(type) {
+			this.dia_show = true;
+			this.dia_type = type;
 		}
 	}
 }
@@ -59,7 +65,7 @@ export default {
 				<img :src="logo" class='logo'>
 				<img :src="go_idx" class="go_idx" @click='gotoIndex'>
 			</div>
-			<down/>
+			<down @open="openDia('qidai')"/>
 		</div>
 		<img :src="game" class="game">
 		<div class="container">
@@ -71,6 +77,7 @@ export default {
 				</el-carousel-item>
 			</el-carousel>
 		</div>
+		<dia :show.sync='dia_show' :type='dia_type' @cb='dia_show = false' />
 		<feet/>
 		<div class="buttom" :style="{backgroundImage:`url(${feet_back})`}" />
 	</div>
@@ -108,7 +115,7 @@ export default {
 	}
 	.banner {
 		position: relative;
-		z-index: 9999;
+		z-index: 2;
 		margin-bottom: 100px;
 		.word_r {
 			width: 300px;
