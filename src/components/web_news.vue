@@ -62,6 +62,8 @@ export default {
 	},
 	computed: {
 		newsType() {
+			if (this.$route.query.type === 'gonglve') this.activeName = 'newbie';
+			if (this.$route.query.type === 'news') this.activeName = 'hots';
 			return this.$route.query.type || 'news';
 		}
 	},
@@ -105,7 +107,7 @@ export default {
 		<div class="loading" v-show='loading' v-loading='loading' />
 		<div class="top" :style="{backgroundImage:`url(${banner})`}" />
 		<dia :show.sync='dia_show' :type='dia_type' @cb='dia_show = false' />
-		<x-head/>
+		<x-head :isShowLast="false"/>
 		<div class="web_cnt">
 			<div class="header flex">
 				<div class="pus" />

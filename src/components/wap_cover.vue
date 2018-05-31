@@ -12,6 +12,7 @@ import wechat from 's/images/cover/wechat.png';
 import webo from 's/images/cover/webo.png';
 import qq from 's/images/cover/qq.png';
 import { share } from 's/share';
+import play from 's/images/play_radio.png';
 
 export default {
 	data() {
@@ -20,6 +21,7 @@ export default {
 			wap_go_idx,
 			wap_down,
 			game,
+			play,
 			shareArr: share,
 			windowHeight: window.outerHeight,
 			imgArr: [],
@@ -33,7 +35,7 @@ export default {
 	methods: {
 		async getInfo() {
 			let os = 2;
-			let data = await this.$http.jsonp(z.jsonp + '/home/getCarousel', { os })
+			let data = await this.$http.jsonp(z.jsonp + '/home/getCarousel?os=2')
 			this.imgArr = data.data.data.length ? data.data.data : [
 				{ images: slider1 }, { images: slider2 }, { images: slider3 }, { images: slider4 }
 			];
@@ -54,6 +56,7 @@ export default {
 		<div class="w_top" :style='{backgroundImage:`url(${banner})`}' />
 		<dia :show.sync='dia_show' :type='dia_type' @cb='dia_show = false' />
 		<div class="wap_banner">
+			<img class='play' @click='openDia("qidai")' :src="play" alt="">
 			<div class="download">
 				<div class="go_idx" @click="gotoIdx" :style="{backgroundImage:`url(${wap_go_idx})`}" />
 				<div class="down" @click='openDia("qidai")' :style="{backgroundImage:`url(${wap_down})`}" />
@@ -86,6 +89,14 @@ export default {
 
 .wap_cover {
 	position: relative;
+	.play {
+		position: absolute;
+		width: 1rem;
+		height: 1rem;
+		top: 7.5rem;
+		left: 50%;
+		margin-left: -.5rem;
+	}
 	.wap_banner {
 		height: 14.5rem;
 	}

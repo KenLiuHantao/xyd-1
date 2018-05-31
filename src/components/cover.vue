@@ -11,6 +11,7 @@ import cover_border from 's/images/cover/cover_border.png';
 import left_arr from 's/images/cover/left_arr.png';
 import right_arr from 's/images/cover/right_arr.png';
 import feet_back from 's/images/cover/feet_back.png';
+import play from 's/images/play_radio.png';
 
 export default {
 	data() {
@@ -19,6 +20,7 @@ export default {
 			go_idx,
 			logo,
 			game,
+			play,
 			imgArr: [],
 			cover_border,
 			left_arr,
@@ -36,7 +38,7 @@ export default {
 		async getInfo() {
 			this.loading = true;
 			let os = 1;
-			let data = await this.$http.jsonp(z.jsonp + '/home/getCarousel', { os });
+			let data = await this.$http.jsonp(z.jsonp + '/home/getCarousel?os=1');
 			this.imgArr = data.data.data.length ? data.data.data : [
 				{ images: slider1 }, { images: slider2 }, { images: slider3 }, { images: slider4 }
 			];
@@ -66,6 +68,7 @@ export default {
 				<div class="word_r">
 					<img :src="logo" class='logo'>
 					<img :src="go_idx" class="go_idx" @click='gotoIndex'>
+					<img class='play' @click='openDia("qidai")' :src="play" alt="">
 					<down @open="openDia('qidai')" />
 				</div>
 			</div>
@@ -114,6 +117,13 @@ export default {
 			width: 500px;
 			height: 400px;
 			margin-top: 160px;
+		}
+		.play {
+			position: absolute;
+			width: 1rem;
+			height: 1rem;
+			margin-left: -.9rem;
+			margin-top: -2rem;
 		}
 		.go_idx {
 			width: 200px;

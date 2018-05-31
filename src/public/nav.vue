@@ -1,6 +1,12 @@
 <script>
 export default {
 	name: 'x-head',
+	props: {
+		isShowLast: {
+			type: Boolean,
+			default: true
+		}
+	},
 	data() {
 		return {
 			nav: [
@@ -16,9 +22,10 @@ export default {
 
 </script>
 <template>
-	<div class="nav">
+	<div class="nav flex f_j_e">
 		<ul>
-			<li v-for='(item, idx) in nav' :key='idx'>
+			{{isShowLast}}
+			<li v-for='(item, idx) in nav' v-if='isShowLast ? true : idx < 3' :key='idx'>
 				<a :href="item.link"><i class="lin"/>{{item.name}}</a>
 			</li>
 		</ul>
@@ -27,14 +34,12 @@ export default {
 <style lang='less'>
 .nav {
 	position: absolute;
-	width: 1150px;
-	left: 50%;
-	margin-left: -575px;
+	width: 1100px;
 	z-index: 1000;
-	padding: 20px;
-	right: 0;
+	padding: 20px 0;
+	left: 50%;
+	margin-left: -550px;
 	ul {
-		margin-left: 400px;
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
@@ -54,7 +59,7 @@ export default {
 				display: flex;
 				align-items: center;
 				color: #fff;
-				font-size: 28px;
+				font-size: 24px;
 				font-weight: bold;
 				transition: all .1s linear;
 			}

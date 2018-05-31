@@ -4,11 +4,13 @@ import download from 's/images/qr_code/download.png';
 import weibo from 's/images/qr_code/weibo.png';
 import qq from 's/images/qr_code/qq.png';
 import qidai from 's/images/qr_code/qidai.png';
+import code_bg from 's/images/qr_code/qr_bg.png';
 
 export default {
 	name: 'dia',
 	data() {
 		return {
+			code_bg,
 			className: 'default'
 		}
 	},
@@ -72,7 +74,10 @@ export default {
 		<template v-if='type !== "weibo"'>
 			<el-dialog :class='className' :visible.sync="show" width="300px" :show-close='false' :before-close='cb'>
 				<h2 v-show='all.title'>{{all.title}}</h2>
-				<img :src="all.img" alt="">
+				<div v-if='type !== "qidai"' class="w_img_cnt flex" :style="{backgroundImage:`url(${code_bg})`}">
+					<img :src="all.img" alt="">
+				</div>
+				<img v-else :src="all.img" alt="">
 			</el-dialog>
 		</template>
 	</div>
@@ -80,6 +85,8 @@ export default {
 <style lang='less'>
 .dialog {
 	.el-dialog {
+		background-image: url(../assets/images/qr_code/dia_bg.png);
+		background-size: 100% 100%;
 		background-color: #033856;
 	}
 	.el-dialog__header {
@@ -100,6 +107,11 @@ export default {
 		font-weight: bold;
 		color: #fff;
 		margin-bottom: 20px;
+	}
+	.w_img_cnt {
+		width: 223px;
+		height: 230px;
+		margin: auto;
 	}
 	img {
 		width: 200px;

@@ -7,7 +7,7 @@ import slider from 'vue-concise-slider'
 import wap1 from 's/images/cover/slider-1.jpg';
 import wap2 from 's/images/cover/slider-2.jpg';
 import wap3 from 's/images/cover/slider-3.jpg';
-import bg from 's/images/index/wujiang/bg/bg.png';
+import bg from 's/images/index/wujiang/bg/wap_bg.jpg';
 import bg_buttom from 's/images/index/bg/bg_buttom.jpg';
 import { wj_list } from 's/wujiang';
 import { corps } from 's/corps';
@@ -81,7 +81,7 @@ export default {
 					})
 				})
 			}
-			this.coverList = pages;
+			this.pages = pages;
 			this.loading = false;
 		},
 		// Listener event
@@ -515,8 +515,8 @@ export default {
 			}
 			img {
 				position: absolute;
-				width: 3.3rem;
-				height: 4.4rem;
+				width: 3.8rem;
+				height: 4.43rem;
 				bottom: 0;
 				right: 0;
 			}
@@ -563,7 +563,7 @@ export default {
 		}
 	}
 	.intr_box {
-		background: url(//game.gtimg.cn/images/3new/web20180301/officerbg.jpg) no-repeat 0 0;
+		background: url('../assets/images/index/bingzhong/wap_bg.jpg') no-repeat 0 0;
 		width: 100%;
 		height: 2.3rem;
 		position: relative;

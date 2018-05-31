@@ -11,6 +11,7 @@ import qr_bg from 's/images/qr_code/code_bg.png';
 import fangshou from 's/images/index/wujiang/icon/fangshou.png';
 import gongji from 's/images/index/wujiang/icon/gongji.png';
 import zhimou from 's/images/index/wujiang/icon/zhimou.png';
+import play from 's/images/play_radio.png';
 
 export default {
 	data() {
@@ -24,6 +25,7 @@ export default {
 			fangshou,
 			gongji,
 			zhimou,
+			play,
 			activeName: 'first',
 			beforeActive: 'first',
 			initData: {},
@@ -119,6 +121,7 @@ export default {
 				<div class="word_r">
 					<img :src="logo" class='logo'>
 					<img :src="logo_w" class='logo_w'>
+					<img class='play' @click='openDia("qidai")' :src="play" alt="">
 					<down :rightShow="true" @open="openDia('qidai')" />
 				</div>
 			</div>
@@ -348,6 +351,13 @@ export default {
 				width: 240px;
 				height: 106px;
 				margin-top: 160px;
+			}
+			.play {
+				position: absolute;
+				width: 1rem;
+				height: 1rem;
+				margin-left: -.5rem;
+				margin-top: -1.2rem;
 			}
 			.logo_w {
 				width: 382px;
