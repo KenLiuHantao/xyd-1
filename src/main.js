@@ -7,6 +7,7 @@ import ElementUI from 'element-ui';
 import xblsUI from './public/index';
 import VueResource from 'vue-resource';
 import 'element-ui/lib/theme-chalk/index.css';
+require('s/logo.ico');
 require('s/common.less');
 require('s/icon.less');
 Vue.config.productionTip = false;
