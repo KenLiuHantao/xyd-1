@@ -24,10 +24,10 @@ export default {
 </script>
 <template>
 	<div class="feet flex" :class='name' :style="{backgroundColor:`${type}`}">
-		<p>版权所有北京飞流九天科技有限公司 2009-2013 京ICP证101164号 京ICP备09095411号</p>
-		<p>京公网安备 11010102001851号</p>
-		<p>新广出审[2017]1239号 ISBN 978-7-7979-4798-5 文网游备字〔2016〕Ｍ-SLG 0905 号</p>
-		<p>京网文[2015]0646-276号 增值电信业务经营许可证：京B2-20100093</p>
+		<p>版权所有北京飞流九天科技有限公司&nbsp;2009-2013&nbsp;京ICP证101164号&nbsp;京ICP备09095411号</p>
+		<p>京公网安备&nbsp;11010102001851号</p>
+		<p>新广出审[2017]1239号&nbsp;ISBN&nbsp;978-7-7979-4798-5&nbsp;文网游备字〔2016〕Ｍ-SLG&nbsp;0905&nbsp;号</p>
+		<p>京网文[2015]0646-276号&nbsp;增值电信业务经营许可证：京B2-20100093</p>
 	</div>
 </template>
 <style lang="less">
@@ -45,6 +45,7 @@ export default {
 		p {
 			line-height: 1.5;
 			font-size: .16rem;
+			word-spacing: normal!important;
 		}
 	}
 	&.dark p {

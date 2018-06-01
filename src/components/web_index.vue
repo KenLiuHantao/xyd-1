@@ -186,6 +186,7 @@ export default {
 							<ul class="skill">
 								<li>
 									<img :src="wj_right.equ">
+									<p class="equ_name">{{wj_right.equ_name}}</p>
 									<!-- <span>赤壁火雨 <i>周瑜召唤火凤凰，对所有敌军造成160%战法伤害，并使敌军持续燃烧3秒，每秒受到11%战法伤害</i></span> -->
 								</li>
 							</ul>
@@ -543,6 +544,12 @@ export default {
 					margin-right: 14px;
 					background: #000;
 					cursor: pointer;
+					.equ_name {
+						position: absolute;
+						left: 50px;
+						width: 200px;
+						top: 4px;
+					}
 					&:hover {
 						span {
 							display: block;

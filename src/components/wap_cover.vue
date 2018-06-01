@@ -57,14 +57,16 @@ export default {
 		<dia :show.sync='dia_show' :type='dia_type' @cb='dia_show = false' />
 		<div class="wap_banner">
 			<img class='play' @click='openDia("qidai")' :src="play" alt="">
-			<div class="download">
-				<div class="go_idx" @click="gotoIdx" :style="{backgroundImage:`url(${wap_go_idx})`}" />
-				<div class="down" @click='openDia("qidai")' :style="{backgroundImage:`url(${wap_down})`}" />
+			<div class="download flex">
+				<div class="w_c_cnt flex f_j_b">
+					<div class="go_idx" @click="gotoIdx" :style="{backgroundImage:`url(${wap_go_idx})`}" />
+					<div class="down" @click='openDia("qidai")' :style="{backgroundImage:`url(${wap_down})`}" />
+				</div>
 			</div>
 		</div>
 		<img :src="game" class="game">
 		<div class="container">
-			<el-carousel :interval='4000' type="card" height="4.6rem">
+			<el-carousel :interval='4000' type="card" width="5rem" height="4.6rem">
 				<el-carousel-item v-for="(item, idx) in imgArr" :key="idx">
 					<div class="back_cover">
 						<div :style="{'background-image':`url(${item.images})`}" class="imgCnt" />
@@ -108,11 +110,14 @@ export default {
 		width: 100%;
 		height: 1rem;
 		top: 10rem;
-		div {
-			background-position: center;
-			background-size: cover;
-			width: 3rem;
-			height: .8rem;
+		.w_c_cnt {
+			width: 6.4rem;
+			div {
+				background-position: center;
+				background-size: cover;
+				width: 3rem;
+				height: .8rem;
+			}
 		}
 		.go_idx {
 			margin-right: .4rem;
@@ -147,15 +152,23 @@ export default {
 		display: none;
 	}
 
+	.el-carousel__container,
+	.el-carousel {
+		width: 5.4rem;
+		margin: auto;
+	}
+
 	.el-carousel__item {
+		width: 2.6rem;
+		height: 100%;
 		.back_cover {
+			width: 2.6rem;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			background-position: center;
 			background-size: 100% 100%;
 			box-sizing: border-box;
-			width: 100%;
 			height: 100%;
 		}
 		.imgCnt {
@@ -163,9 +176,9 @@ export default {
 			z-index: 0;
 			margin: auto;
 			box-sizing: border-box;
-			width: 95%;
-			height: 95%;
-			background-size: cover;
+			width: 100%;
+			height: 100%;
+			background-size: 100% 100%;
 			background-position: center;
 			border: 2px solid #facd89;
 		}

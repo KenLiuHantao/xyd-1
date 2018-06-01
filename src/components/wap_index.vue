@@ -184,6 +184,7 @@ export default {
 						<ul class="skill">
 							<li>
 								<img :src="wj_right.equ">
+								<p class="equ_name">{{wj_right.equ_name}}</p>
 							</li>
 						</ul>
 						<img :src="wj_right.big" alt="周瑜">
@@ -427,6 +428,8 @@ export default {
 				font-weight: bold;
 			}
 			p {
+				position: relative;
+				z-index: 1;
 				width: 60%;
 				height: 1.2rem;
 				overflow: hidden;
@@ -436,11 +439,13 @@ export default {
 				font-weight: bold;
 			}
 			.many_data {
+				position: relative;
 				color: #fff;
 				font-size: .14rem;
 				font-weight: bold;
 				overflow: hidden;
 				margin-bottom: .1rem;
+				z-index: 1;
 				li {
 					display: flex;
 					align-items: center;
@@ -473,6 +478,12 @@ export default {
 					margin-right: .14rem;
 					background: #000;
 					cursor: pointer;
+					.equ_name {
+						position: absolute;
+						left: .5rem;
+						width: 2rem;
+						top: .04rem;
+					}
 					&:hover {
 						span {
 							display: block;
