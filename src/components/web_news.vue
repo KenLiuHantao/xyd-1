@@ -140,11 +140,11 @@ export default {
 				<div class="right">
 					<h2 v-if='newsType === "news"' class="r_fip flex f_j_b">
 						<p>新闻公告<span>NEWS</span></p>
-						<h3><router-link to="/">官网首页</router-link><<新闻公告</h3>
+						<h3><router-link to="/web/index">官网首页</router-link><<新闻公告</h3>
 					</h2>
 					<h2 v-if='newsType === "gonglve"' class="r_fip flex f_j_b">
 						<p>游戏攻略<span>STRATEGY</span></p>
-						<h3><router-link to="/">官网首页</router-link><<游戏攻略</h3>
+						<h3><router-link to="/web/index">官网首页</router-link><<游戏攻略</h3>
 					</h2>
 					<div v-if='isDetail' class="news_article">
 						<h3 class="title">{{article.title}}</h3>
