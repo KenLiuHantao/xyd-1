@@ -271,7 +271,7 @@ export default {
 			}
 			.slogen {
 				margin: 5.3rem auto .4rem auto;
-				width: 3.8rem;
+				width: 4.66rem;
 				float: none;
 			}
 			.down {
