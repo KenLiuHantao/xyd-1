@@ -157,7 +157,7 @@ export default {
 				<p>CHARACTER</p>
 			</h2>
 				<a href="javascript:;" @click='openDia("qidai")' class="more">
-				更多<i class="spr">+</i>
+				更多<i class="spr flex">+</i>
 			</a>
 				<ul class="inif_list mgt18">
 					<li v-for='(item, idx) in wj_list' @click="PTTSendClick(item, idx)" @mousedown="detailRender(8)" :class="idx === list_idx ? 'grayscale inif_list_8 on' : 'grayscale inif_list_8'">
@@ -176,9 +176,9 @@ export default {
 							<span class='star' :style="{backgroundImage:`url(${wj_right.star})`}" />
 						</h5>
 							<ul class="many_data">
-								<li><i :style="{backgroundImage:`url(${gongji})`}" class="spr" />攻击<span>{{wj_right.attack}}</span></li>
-								<li><i :style="{backgroundImage:`url(${fangshou})`}" class="spr" />防守<span>{{wj_right.defense}}</span></li>
-								<li><i :style="{backgroundImage:`url(${zhimou})`}" class="spr" />智谋<span>{{wj_right.iq}}</span></li>
+								<li><i :style="{backgroundImage:`url(${gongji})`}" class="spr flex" />攻击<span>{{wj_right.attack}}</span></li>
+								<li><i :style="{backgroundImage:`url(${fangshou})`}" class="spr flex" />防守<span>{{wj_right.defense}}</span></li>
+								<li><i :style="{backgroundImage:`url(${zhimou})`}" class="spr flex" />智谋<span>{{wj_right.iq}}</span></li>
 							</ul>
 							<h6>武技描述</h6>
 							<p>{{wj_right.cons}}</p>
@@ -201,7 +201,7 @@ export default {
 				<p>CORPS</p>
 			</h2>
 				<a href="javascript:;" @click='openDia("qidai")' class="more">
-				更多<i class="spr">+</i>
+				更多<i class="spr flex">+</i>
 			</a>
 				<ul class="sum_list">
 					<li v-for="(item, c_idx) in corps" @click='choiceCorps(item, c_idx)' :class="c_idx == sub_idx ? 'on' : ''">

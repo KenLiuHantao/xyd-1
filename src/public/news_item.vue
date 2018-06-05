@@ -26,7 +26,7 @@ export default {
 	},
 	methods: {
 		getDate(date) {
-			return date ? moment(new Date(Number(date))).format('MM/DD') : '';
+			return date ? moment(new Date(Number(date * 1000))).format('MM/DD') : '';
 		},
 		gotoNews(el) {
 			console.log(el);
@@ -52,7 +52,7 @@ export default {
 <style lang='less'>
 .news_item {
 	&.wap {
-		ul{
+		ul {
 			min-height: 2.5rem;
 			padding-left: 0;
 		}
@@ -64,11 +64,11 @@ export default {
 			* {
 				font-size: .24rem;
 			}
-			span{
+			span {
 				width: 1rem;
 			}
 		}
-		.no_info{
+		.no_info {
 			min-height: 2.5rem;
 			font-size: .24rem;
 		}
@@ -104,7 +104,7 @@ export default {
 		}
 		span {
 			display: inline-block;
-			width: 70px;
+			width: auto;
 		}
 	}
 }

@@ -58,6 +58,7 @@ export default {
 	justify-content: center;
 	flex-direction: column;
 	background-size: 100% 100%;
+	z-index: 9999;
 	.cnt {
 		position: absolute;
 		z-index: 1;
