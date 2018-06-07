@@ -9,32 +9,32 @@ export default {
 			article: {},
 			initData: {},
 			isDetail: false,
-			activeName: 'hots',
+			activeName: '47',
 			dia_show: false,
 			dia_type: 'qq',
 			pageSize: 13,
 			pageIndex: 1,
 			totals: 0,
 			showData: [],
-			pageShow:false
+			pageShow: false
 		}
 	},
 	mounted() {
 		let isDetail = this.$route.query.news_id || false;
 		this.isDetail = isDetail;
-		this.activeName = this.newsType === 'news' ? 'hots' : 'newbie';
-		isDetail ? this.getArticle(isDetail) : this.getInfo();
+		this.activeName = this.newsType === 'news' ? '47' : '50';
+		isDetail ? this.getArticle(isDetail) : this.getShowList();
 	},
 	beforeRouteUpdate(to, from, next) {
 		if (to.query.news_id) {
 			this.getArticle(to.query.news_id);
 			this.isDetail = true;
 		} else {
-			if (this.newsType === 'gonglve') this.activeName = 'newbie';
-			if (this.newsType === 'news') this.activeName = 'hots';
-			console.log(this.newsType,this.activeName);
+			if (this.newsType === 'gonglve') this.activeName = '50';
+			if (this.newsType === 'news') this.activeName = '47';
+			console.log(this.newsType, this.activeName);
 			this.isDetail = false;
-			this.getInfo();
+			this.getShowList();
 		};
 		next();
 	},
@@ -50,21 +50,22 @@ export default {
 			this.article = data.data.data;
 			this.loading = false
 		},
-		async getInfo() {
+		async getInfo(id) {
 			this.loading = true;
-			let data = await this.$http.jsonp(z.jsonp + '/home/getLists');
-			let initData = data.data.list;
-			this.initData = initData;
-			this.getShowList();
+			let extra = `?type_id=${id}&page_size=${this.pageSize}&page_index=${this.pageIndex}`
+			let data = await this.$http.jsonp(z.jsonp + '/home/getPageNews' + extra);
 			this.loading = false;
+			return data.data.list ? data.data : { allPages: 1, list: [] };
 		},
-		getShowList() {
-			let arr = this.initData[this.activeName],
-				start_idx = (this.pageIndex - 1) * this.pageSize,
-				end_idx = this.pageSize * this.pageIndex;
-			this.pageShow = (arr.length > this.pageSize);
-			this.totals = arr.length ? arr.length : 0;
-			this.showData = arr.length ? arr.slice(start_idx, end_idx) : [];
+		async getShowList(e, event, resize = true) {
+			if (resize) this.pageIndex = 1;
+			let data = await this.getInfo(e ? e.name : this.activeName),
+				arr = data.list,
+				allPages = data.allPages;
+
+			this.totals = allPages * this.pageSize;
+			this.pageShow = (this.totals > this.pageSize);
+			this.showData = arr;
 		},
 		openDia(type) {
 			this.dia_show = true;
@@ -75,7 +76,7 @@ export default {
 		},
 		changePage(idx) {
 			this.pageIndex = idx;
-			this.getShowList();
+			this.getShowList(null, null, false);
 		}
 	}
 }
@@ -83,6 +84,7 @@ export default {
 </script>
 <template>
 	<div class="wap_news">
+		<div class="loading" v-show='loading' v-loading='loading' />
 		<div class="w_title flex f_j_s">
 			<h2 v-if='!isDetail' class="flex" @click='gotoIdx("index")'><i class="el-icon-arrow-left"/>官方首页</h2>
 			<h2 v-if='isDetail' class="flex" @click='gotoIdx("news")'><i class="el-icon-arrow-left"/>返回列表</h2>
@@ -90,24 +92,24 @@ export default {
 		</div>
 		<div class="w_cnt">
 			<el-tabs v-if='newsType === "news" && !isDetail' v-model="activeName" @tab-click="getShowList">
-				<el-tab-pane label="热点" name="hots">
+				<el-tab-pane label="热点" name="47">
 					<news-item :ispc='false' :list='showData' :maxShow="0" label='热点' />
 				</el-tab-pane>
-				<el-tab-pane label="新闻" name="news">
+				<el-tab-pane label="新闻" name="48">
 					<news-item :ispc='false' :list='showData' :maxShow="0" label='新闻' />
 				</el-tab-pane>
-				<el-tab-pane label="活动" name="activities">
+				<el-tab-pane label="活动" name="49">
 					<news-item :ispc='false' :list='showData' :maxShow="0" label='活动' />
 				</el-tab-pane>
 			</el-tabs>
 			<el-tabs v-if='newsType === "gonglve" && !isDetail' v-model="activeName" @tab-click="getShowList">
-				<el-tab-pane label="新手教学" name="newbie">
+				<el-tab-pane label="新手教学" name="50">
 					<news-item :ispc='false' :list='showData' :maxShow="0" label='新手教学' />
 				</el-tab-pane>
-				<el-tab-pane label="高手进阶" name="geek">
+				<el-tab-pane label="高手进阶" name="51">
 					<news-item :ispc='false' :list='showData' :maxShow="0" label='高手进阶' />
 				</el-tab-pane>
-				<el-tab-pane label="国战咨询" name="war">
+				<el-tab-pane label="国战咨询" name="52">
 					<news-item :ispc='false' :list='showData' :maxShow="0" label='国战咨询' />
 				</el-tab-pane>
 			</el-tabs>
@@ -126,7 +128,7 @@ export default {
 .wap_news {
 	padding-top: 1rem;
 	.el-pagination {
-		margin-top: .2rem;
+		margin-bottom: .3rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
