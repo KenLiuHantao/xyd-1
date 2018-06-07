@@ -22,6 +22,7 @@ export default {
 	mounted() {
 		let isDetail = this.$route.query.news_id || false;
 		this.isDetail = isDetail;
+		this.pageShow = !isDetail;
 		this.activeName = this.newsType === 'news' ? '47' : '50';
 		isDetail ? this.getArticle(isDetail) : this.getShowList();
 	},
@@ -29,10 +30,10 @@ export default {
 		if (to.query.news_id) {
 			this.getArticle(to.query.news_id);
 			this.isDetail = true;
+			this.pageShow = false;
 		} else {
-			if (to.query.type === 'gonglve') this.activeName = '50';
-			if (to.query.type === 'news') this.activeName = '47';
-			console.log(this.newsType, this.activeName);
+			if ((to.query.type || this.newsType) === 'gonglve') this.activeName = '50';
+			if ((to.query.type || this.newsType) === 'news') this.activeName = '47';
 			this.isDetail = false;
 			this.getShowList();
 		};
