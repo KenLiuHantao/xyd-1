@@ -34,7 +34,7 @@ export default {
 			activeName: '47',
 			dia_show: false,
 			dia_type: 'qq',
-			pageSize: 10,
+			pageSize: 15,
 			pageIndex: 1,
 			totals: 0,
 			allPages: 1,

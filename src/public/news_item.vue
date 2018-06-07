@@ -74,6 +74,7 @@ export default {
 		}
 	}
 	ul {
+		min-height: 765px;
 		box-sizing: border-box;
 		list-style: square;
 		padding-left: 20px;
