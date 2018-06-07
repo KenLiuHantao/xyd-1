@@ -30,8 +30,8 @@ export default {
 			this.getArticle(to.query.news_id);
 			this.isDetail = true;
 		} else {
-			if (this.newsType === 'gonglve') this.activeName = '50';
-			if (this.newsType === 'news') this.activeName = '47';
+			if (to.query.type === 'gonglve') this.activeName = '50';
+			if (to.query.type === 'news') this.activeName = '47';
 			console.log(this.newsType, this.activeName);
 			this.isDetail = false;
 			this.getShowList();
