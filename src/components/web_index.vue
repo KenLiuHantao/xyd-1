@@ -100,7 +100,7 @@ export default {
 			}
 		},
 		openMessage() {
-			this.$message('敬请期待~');
+			this.$message('敬请期待1~');
 		},
 		openDia(type) {
 			this.dia_show = true;
